@@ -6,7 +6,9 @@ import { Component, EventEmitter, Input, Output, style } from '@angular/core';
         .thumbnail { min-height: 210px; }
         .pad-left { padding-left: 20px; }
         .well div { color: red }
+        .lightgreen { color: lightgreen !important;}
         .yellow { color: yellow !important;}
+        .pink { color: pink !important;}
         .bold { font-weight: bold;}
     `],
     template: `
@@ -19,7 +21,7 @@ import { Component, EventEmitter, Input, Output, style } from '@angular/core';
             <span *ngSwitchCase="'10:00 am'">(Late Start)</span>
             <span *ngSwitchDefault>(Normal Start)</span>
         </div>
-        <div>Price: \${{event?.price}}</div>
+        <div [style.color]="event?.time === '8:00 am' ? 'pink' : 'lightgreen'">Price: \${{event?.price}}</div>
         <div *ngIf="event?.location">
             <span>Location: {{event?.location?.address}}</span>
             <span class="pad-left">{{event?.location?.city}}, {{event?.location?.country}}</span>
