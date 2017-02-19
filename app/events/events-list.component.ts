@@ -2,10 +2,14 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'events-list',
+    styles: [`
+        .well { color: yellow; }
+    `],
     template: `
     <div>
         <h1>Upcoming Angular 2 Events</h1>
         <hr>
+        <div class="well">TEST</div>
         <event-thumbnail #thumbnail (eventClick)="handleEventClicked($event)" [event]="event1"></event-thumbnail>
         <button class="btn btn-primary" (click)="thumbnail.logFoo()">Log foo</button>
         <h3>{{thumbnail.someProperty}}</h3>
