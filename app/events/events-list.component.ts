@@ -21,6 +21,14 @@ import { Component } from '@angular/core';
 export class EventsListComponent {
     events = [
         {
+        id: 0,
+        name: 'Test',
+        date: '9/25/2036',
+        time: '10:00 am',
+        price: 599.99,
+        onlineUrl: 'http://ng-nl.org'
+        },
+        {
         id: 1,
         name: 'Angular Connect',
         date: '9/26/2036',
