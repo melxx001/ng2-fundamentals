@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
                     <li>
                     <a [routerLink]="['/events']">All Events</a>
                     </li>
-                    <li><a href="">Create Event</a></li>
+                    <li><a [routerLink]="['/events/new']">Create Event</a></li>
                     <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
                         Events
