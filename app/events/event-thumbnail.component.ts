@@ -21,7 +21,7 @@ import { Component, EventEmitter, Input, Output, style } from '@angular/core';
             <span *ngSwitchCase="'10:00 am'">(Late Start)</span>
             <span *ngSwitchDefault>(Normal Start)</span>
         </div>
-        <div [style.color]="event?.time === '8:00 am' ? 'pink' : 'lightgreen'">Price: \${{event?.price}}</div>
+        <div [ngStyle]="getStartTimeStyle()">Price: \${{event?.price}}</div>
         <div *ngIf="event?.location">
             <span>Location: {{event?.location?.address}}</span>
             <span class="pad-left">{{event?.location?.city}}, {{event?.location?.country}}</span>
@@ -34,11 +34,20 @@ export class EventThumbnailComponent {
     @Input() event: any;
     @Output() eventClick = new EventEmitter();
     
-    getStartTimeClass() {
+    getStartTimeClass() : any {
         const earlyStart = this.event && this.event.time === '8:00 am';
         return {
             yellow: earlyStart, 
             bold: earlyStart
+        }
+    }
+
+    getStartTimeStyle() : any {
+        const earlyStart = this.event && this.event.time === '8:00 am';
+
+        return {
+            color: earlyStart ? 'pink' : 'lightgreen', 
+            'font-weight': earlyStart ? 'normal': 'bold'
         }
     }
 }
