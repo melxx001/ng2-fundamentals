@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
                 <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                    <a >All Events</a>
+                    <a [routerLink]="['/events']">All Events</a>
                     </li>
                     <li><a href="">Create Event</a></li>
                     <li class="dropdown">
