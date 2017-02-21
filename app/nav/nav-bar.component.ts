@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
         .nav.nabar-nav { font-size: 15px; }
         #searchForm { margin-right: 100px }
         @media (max-width: 1200px) { #searchForm { display: none; } }
+        li > a.active { color: #F97924; }
     `],
     template: `
         <div class="navbar navbar-default">
@@ -17,9 +18,9 @@ import { Component } from '@angular/core';
                 <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                    <a [routerLink]="['/events']">All Events</a>
+                    <a [routerLink]="['/events']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">All Events</a>
                     </li>
-                    <li><a [routerLink]="['/events/new']">Create Event</a></li>
+                    <li><a [routerLink]="['/events/new']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Create Event</a></li>
                     <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
                         Events
