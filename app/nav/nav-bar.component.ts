@@ -36,7 +36,7 @@ import { Component } from '@angular/core';
                 <div class="navbar-header navbar-right">
                     <ul class="nav navbar-nav">
                     <li>
-                        <a>Welcome John</a>
+                        <a [routerLink]="['user/profile']">Welcome John</a>
                     </li>
                     </ul>
                 </div>
