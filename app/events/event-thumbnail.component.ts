@@ -31,7 +31,7 @@ import { Component, EventEmitter, Input, Output, style } from '@angular/core';
     `
 })
 export class EventThumbnailComponent {
-    @Input() event: any;
+    @Input() event: Event;
     @Output() eventClick = new EventEmitter();
     
     getStartTimeClass() : any {
