@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { AuthService } from '../user/auth.service';
+
 @Component({
     selector: 'nav-bar',
     styles: [`
@@ -36,7 +38,8 @@ import { Component } from '@angular/core';
                 <div class="navbar-header navbar-right">
                     <ul class="nav navbar-nav">
                     <li>
-                        <a [routerLink]="['user/profile']">Welcome John</a>
+                        <a [routerLink]="['user/login']" *ngIf="!auth.isAuthenticated()">Login</a>
+                        <a [routerLink]="['user/profile']" *ngIf="auth.isAuthenticated()">Welcome {{ auth.currentUser.firstName }}</a>
                     </li>
                     </ul>
                 </div>
@@ -54,5 +57,5 @@ import { Component } from '@angular/core';
     `
 })
 export class NavBarComponent {
-
+    constructor(private auth: AuthService) {}
 }
