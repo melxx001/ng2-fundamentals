@@ -1,4 +1,7 @@
+import { Router } from '@angular/router';
 import { Component  } from '@angular/core';
+
+import { AuthService } from './auth.service';
 
 @Component({
     template: `
@@ -16,13 +19,20 @@ import { Component  } from '@angular/core';
             </div>
                 
             <button type="submit" class="btn btn-primary">Login</button>
-            <button type="button" class="btn btn-default">Cancel</button>
+            <button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
         </form>
         </div>
     `
 })
 export class LoginComponent {
+    constructor(private authService: AuthService, private router: Router) {}
+
     login(formValues) {
-        console.log(formValues);
+        this.authService.loginUser(formValues.userName, formValues.password);
+        this.router.navigate(['events']);
+    }
+
+    cancel() {
+        this.router.navigate(['events']);
     }
 }
