@@ -1,23 +1,33 @@
 import { Router } from '@angular/router';
 import { FormControlName } from '@angular/forms/src/directives';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from './auth.service';
 
 @Component({
+  styles: [`
+    em { float: right; color: red; padding-left: 10px }
+    .error input { background-color: red; }
+    .error ::-webkit-input-placeholder { color: #999 }
+    .error ::-moz-placeholder { color: #999 }
+    .error :-moz-placeholder { color: #999 }
+    .error :ms-input-placeholder { color: #999 }
+  `],
   template: `
     <div>
       <h1>Edit Your Profile </h1>
       <hr>
       <div class="col-md-4">
         <form [formGroup]="profileForm" (ngSubmit)="saveProfile(profileForm.value)" autocomplete="off" novalidate>
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{ 'error': !validateFirstName() }">
             <label for="firstName">First Name:</label>
+            <em *ngIf="!validateFirstName()">Required</em>
             <input formControlName="firstName" id="firstName" type="text" class="form-control" placeholder="First Name..." />
           </div>
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{ 'error': !validateLastName() }">
             <label for="lastName">Last Name:</label>
+            <em *ngIf="!validateLastName()">Required</em>
             <input formControlName="lastName" id="lastName" type="text" class="form-control" placeholder="Last Name..." />
           </div>
 
@@ -30,15 +40,17 @@ import { AuthService } from './auth.service';
 })
 export class ProfileComponent implements OnInit {
        profileForm: FormGroup;
+       firstName: FormControl;
+       lastName: FormControl;
 
        constructor(private authService: AuthService, private router: Router) {}
 
        ngOnInit() {
-         let firstName = new FormControl(this.authService.currentUser.firstName);
-         let lastName = new FormControl(this.authService.currentUser.lastName);
+         this.firstName = new FormControl(this.authService.currentUser.firstName, Validators.required);
+         this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required);
          this.profileForm = new FormGroup({
-           firstName,
-           lastName
+           firstName: this.firstName,
+           lastName: this.lastName
          });
        }
 
@@ -47,7 +59,17 @@ export class ProfileComponent implements OnInit {
        }
 
        saveProfile(formValues) {
-         this.authService.updateCurrentUser(formValues.firstName, formValues.lastName);
-         this.router.navigate(['events']);
+         if (this.profileForm.valid) {
+          this.authService.updateCurrentUser(formValues.firstName, formValues.lastName);
+          this.router.navigate(['events']);
+         }
+       }
+
+       validateFirstName() {
+         return this.firstName.valid || this.firstName.untouched;
+       }
+
+       validateLastName() {
+         return this.lastName.valid || this.lastName.untouched;
        }
 }
