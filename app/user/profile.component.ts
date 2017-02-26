@@ -22,7 +22,8 @@ import { AuthService } from './auth.service';
         <form [formGroup]="profileForm" (ngSubmit)="saveProfile(profileForm.value)" autocomplete="off" novalidate>
           <div class="form-group" [ngClass]="{ 'error': !validateFirstName() }">
             <label for="firstName">First Name:</label>
-            <em *ngIf="!validateFirstName()">Required</em>
+            <em *ngIf="!validateFirstName() && profileForm.controls.firstName.errors.required">Required</em>
+            <em *ngIf="!validateFirstName() && profileForm.controls.firstName.errors.pattern">Must start with a letter</em>
             <input formControlName="firstName" id="firstName" type="text" class="form-control" placeholder="First Name..." />
           </div>
           <div class="form-group" [ngClass]="{ 'error': !validateLastName() }">
@@ -46,7 +47,7 @@ export class ProfileComponent implements OnInit {
        constructor(private authService: AuthService, private router: Router) {}
 
        ngOnInit() {
-         this.firstName = new FormControl(this.authService.currentUser.firstName, Validators.required);
+         this.firstName = new FormControl(this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
          this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required);
          this.profileForm = new FormGroup({
            firstName: this.firstName,
