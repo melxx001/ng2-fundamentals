@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -22,6 +23,8 @@ import { appRoutes } from './routes';
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forRoot(appRoutes)
     ],
     declarations: [
@@ -48,7 +51,7 @@ import { appRoutes } from './routes';
         EventsAppComponent
     ]
 })
-export class AppModule {}
+export class AppModule { }
 
 function checkDirtyState(component: CreateEventComponent) {
     if (component.isDirty) {
