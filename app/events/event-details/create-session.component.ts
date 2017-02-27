@@ -1,9 +1,9 @@
-import { isNull } from 'util';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Sessions, restrictedWords } from '../shared/index';
 
 @Component({
+    selector: 'create-session',
     styles: [`
         em { float: right; color: red; padding-left: 10px }
         .error input, .error select, .error textarea { background-color: red; }
@@ -57,7 +57,7 @@ import { Sessions, restrictedWords } from '../shared/index';
             <textarea formControlName="abstract" id="abstract" rows=3 class="form-control" placeholder="abstract..."></textarea>
             </div>
             <button type="submit" [disabled]="newSessionForm.invalid" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-default">Cancel</button>
+            <button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
         </form>
         </div>
     `
@@ -70,7 +70,8 @@ export class CreateSessionComponent implements OnInit {
     abstract: FormControl;
     newSessionForm: FormGroup;
 
-    constructor() { }
+    @Output() saveNewSession = new EventEmitter();
+    @Output() cancelAddSession = new EventEmitter();
 
     ngOnInit() {
         this.name = new FormControl('', Validators.required);
@@ -99,6 +100,10 @@ export class CreateSessionComponent implements OnInit {
             voters: []
         };
 
-        console.log(session);
+        this.saveNewSession.emit(session);
+    }
+
+    cancel() {
+        this.cancelAddSession.emit();
     }
 }
