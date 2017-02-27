@@ -32,6 +32,10 @@ import { Event } from '../shared/index';
                 </address>
                 </div>
             </div>
+
+            <hr>
+
+            <session-list [sessions]="event?.sessions"></session-list>
         </div>
     `
 })
@@ -41,8 +45,8 @@ export class EventDetailsComponent implements OnInit {
     constructor(
         private eventService: EventService,
         private route: ActivatedRoute
-    ) {}
-    
+    ) { }
+
     ngOnInit() {
         this.event = this.eventService.getEvent(
             +this.route.snapshot.params['id']
