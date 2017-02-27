@@ -35,9 +35,15 @@ import { Event, Sessions } from '../shared/index';
 
             <hr>
 
-            <div class="row">
+            <div class="row" style="margin-bottom: 10px;">
                 <div class="col-md-2">
                     <h3 style="margin: 0;">Sessions</h3>
+                </div>
+                <div class="col-md-7">
+                    <button class="btn btn-default" [class.active]="filterBy==='all'" (click)="filterBy='all'">All</button>
+                    <button class="btn btn-default" [class.active]="filterBy==='beginner'" (click)="filterBy='beginner'">Beginner</button>
+                    <button class="btn btn-default" [class.active]="filterBy==='intermediate'" (click)="filterBy='intermediate'">Intermediate</button>
+                    <button class="btn btn-default" [class.active]="filterBy==='advanced'" (click)="filterBy='advanced'">Advanced</button>
                 </div>
                 <div class="col-md-2" *ngIf="!addMode">
                     <a href="javascript:void(0);" (click)="addSession()">Add Session</a>
@@ -52,6 +58,7 @@ import { Event, Sessions } from '../shared/index';
 export class EventDetailsComponent implements OnInit {
     event: Event;
     addMode: boolean;
+    filterBy: string = 'all';
 
     constructor(
         private eventService: EventService,
