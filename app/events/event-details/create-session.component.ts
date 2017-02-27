@@ -1,6 +1,7 @@
+import { isNull } from 'util';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Sessions } from '../shared/index';
+import { Sessions, restrictedWords } from '../shared/index';
 
 @Component({
     styles: [`
@@ -52,6 +53,7 @@ import { Sessions } from '../shared/index';
             <label for="abstract">Abstract:</label>
             <em *ngIf="abstract.invalid && abstract.dirty && abstract?.errors.required">Required</em>
             <em *ngIf="abstract.invalid && abstract.dirty && abstract?.errors.maxLength">Required</em>
+            <em *ngIf="abstract.invalid && abstract.dirty && abstract?.errors.restrictedWords">Restricted words found: {{abstract.errors.restrictedWords}}</em>
             <textarea formControlName="abstract" id="abstract" rows=3 class="form-control" placeholder="abstract..."></textarea>
             </div>
             <button type="submit" [disabled]="newSessionForm.invalid" class="btn btn-primary">Save</button>
@@ -75,7 +77,7 @@ export class CreateSessionComponent implements OnInit {
         this.presenter = new FormControl('', Validators.required);
         this.duration = new FormControl('', Validators.required);
         this.level = new FormControl('', Validators.required);
-        this.abstract = new FormControl('', [Validators.required, Validators.maxLength(400)]);
+        this.abstract = new FormControl('', [Validators.required, Validators.maxLength(400), restrictedWords(['foo', 'bar'])]);
 
         this.newSessionForm = new FormGroup({
             name: this.name,
@@ -83,7 +85,7 @@ export class CreateSessionComponent implements OnInit {
             duration: this.duration,
             level: this.level,
             abstract: this.abstract
-        })
+        });
     }
 
     saveSession(formValues) {
