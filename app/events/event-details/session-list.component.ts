@@ -26,15 +26,38 @@ import { Sessions } from '../shared/index';
 export class SessionListComponent implements OnChanges {
     @Input() sessions: Sessions[];
     @Input() filterBy: string;
+    @Input() sortBy: string;
     visibleSessions: Sessions[] = [];
 
     ngOnChanges() {
         if (this.sessions) {
             this.filterSessions(this.filterBy);
+            this.sortSessions(this.sortBy);
         }
     }
 
-    filterSessions(filter) {
+    sortSessions(sort: string): void {
+        if (sort === 'votes') {
+            this.visibleSessions = this.visibleSessions.sort((a, b) => {
+                return b.voters.length - a.voters.length;
+            });
+        } else {
+            this.visibleSessions = this.visibleSessions.sort((a, b) => {
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+
+                // names are equal
+                return 0;
+            });
+        }
+    }
+    filterSessions(filter: string): void {
         if (filter === 'all') {
             this.visibleSessions = [...this.sessions];
         } else {

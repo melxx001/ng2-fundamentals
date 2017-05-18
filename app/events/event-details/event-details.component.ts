@@ -40,17 +40,23 @@ import { Event, Sessions } from '../shared/index';
                     <h3 style="margin: 0;">Sessions</h3>
                 </div>
                 <div class="col-md-7">
-                    <button class="btn btn-default" [class.active]="filterBy==='all'" (click)="filterBy='all'">All</button>
-                    <button class="btn btn-default" [class.active]="filterBy==='beginner'" (click)="filterBy='beginner'">Beginner</button>
-                    <button class="btn btn-default" [class.active]="filterBy==='intermediate'" (click)="filterBy='intermediate'">Intermediate</button>
-                    <button class="btn btn-default" [class.active]="filterBy==='advanced'" (click)="filterBy='advanced'">Advanced</button>
+                    <div class="btn-group btn-group-sm" style="margin-right: 20px; margin-left: 20px;">
+                        <button class="btn btn-default" [class.active]="sortBy==='name'" (click)="sortBy='name'">By Name</button>
+                        <button class="btn btn-default" [class.active]="sortBy==='votes'" (click)="sortBy='votes'">By Votes</button>
+                    </div>
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-default" [class.active]="filterBy==='all'" (click)="filterBy='all'">All</button>
+                        <button class="btn btn-default" [class.active]="filterBy==='beginner'" (click)="filterBy='beginner'">Beginner</button>
+                        <button class="btn btn-default" [class.active]="filterBy==='intermediate'" (click)="filterBy='intermediate'">Intermediate</button>
+                        <button class="btn btn-default" [class.active]="filterBy==='advanced'" (click)="filterBy='advanced'">Advanced</button>
+                    </div>
                 </div>
                 <div class="col-md-2" *ngIf="!addMode">
                     <a href="javascript:void(0);" (click)="addSession()">Add Session</a>
                 </div>
             </div>
 
-            <session-list [filterBy]="filterBy" *ngIf="!addMode" [sessions]="event?.sessions"></session-list>
+            <session-list [sortBy]="sortBy" [filterBy]="filterBy" *ngIf="!addMode" [sessions]="event?.sessions"></session-list>
             <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelAddSession)="cancelAddSession()"></create-session>
         </div>
     `
@@ -59,6 +65,7 @@ export class EventDetailsComponent implements OnInit {
     event: Event;
     addMode: boolean;
     filterBy: string = 'all';
+    sortBy: string = 'votes';
 
     constructor(
         private eventService: EventService,
@@ -67,7 +74,7 @@ export class EventDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.event = this.eventService.getEvent(
-            +this.route.snapshot.params['id']
+            + this.route.snapshot.params['id']
         );
     }
 
