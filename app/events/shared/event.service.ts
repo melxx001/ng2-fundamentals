@@ -65,7 +65,7 @@ const EVENTS: Event[] = [
             the right management they can be even more productive, without 
             overworking them. In this session I'll show you how to get the 
             best results from the talent you already have on staff.`,
-            voters: ['johnpapa', 'bradgreen', 'igorminar', 'martinfowler']
+            voters: ['johnpapa', 'bradgreen', 'igorminar', 'martinfowler', 'hicham', 'ana', 'hicham', 'ana', 'hicham', 'ana']
         },
         {
             id: 3,
@@ -92,7 +92,7 @@ const EVENTS: Event[] = [
             Angular 6 even though no code has yet been written for it. We'll 
             look at what it might do, and how to convince your manager to 
             hold off on any new apps until it's released`,
-            voters: []
+            voters: ['bradgreen', 'igorminar']
         },
         {
             id: 5,
@@ -104,7 +104,7 @@ const EVENTS: Event[] = [
             will give you everything you need to know about Angular 4 to 
             get started with it today and be building UI's for your self 
             driving cars and butler-bots in no time.`,
-            voters: ['bradgreen', 'igorminar']
+            voters: []
         }
         ]
     },
