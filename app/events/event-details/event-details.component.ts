@@ -50,7 +50,7 @@ import { Event, Sessions } from '../shared/index';
                 </div>
             </div>
 
-            <session-list *ngIf="!addMode" [sessions]="event?.sessions"></session-list>
+            <session-list [filterBy]="filterBy" *ngIf="!addMode" [sessions]="event?.sessions"></session-list>
             <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelAddSession)="cancelAddSession()"></create-session>
         </div>
     `
