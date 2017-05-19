@@ -1,8 +1,9 @@
 import { Router } from '@angular/router';
 import { FormControlName } from '@angular/forms/src/directives';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { Toastr, TOASTR_TOKEN } from '../common/toastr.service';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -40,37 +41,37 @@ import { AuthService } from './auth.service';
   `,
 })
 export class ProfileComponent implements OnInit {
-       profileForm: FormGroup;
-       firstName: FormControl;
-       lastName: FormControl;
+  profileForm: FormGroup;
+  firstName: FormControl;
+  lastName: FormControl;
 
-       constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, @Inject(TOASTR_TOKEN) private toastr: Toastr) { }
 
-       ngOnInit() {
-         this.firstName = new FormControl(this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
-         this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required);
-         this.profileForm = new FormGroup({
-           firstName: this.firstName,
-           lastName: this.lastName
-         });
-       }
+  ngOnInit() {
+    this.firstName = new FormControl(this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
+    this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required);
+    this.profileForm = new FormGroup({
+      firstName: this.firstName,
+      lastName: this.lastName
+    });
+  }
 
-       cancel() {
-         this.router.navigate(['events']);
-       }
+  cancel() {
+    this.router.navigate(['events']);
+  }
 
-       saveProfile(formValues) {
-         if (this.profileForm.valid) {
-          this.authService.updateCurrentUser(formValues.firstName, formValues.lastName);
-          this.router.navigate(['events']);
-         }
-       }
+  saveProfile(formValues) {
+    if (this.profileForm.valid) {
+      this.authService.updateCurrentUser(formValues.firstName, formValues.lastName);
+      this.toastr.success('Profile Saved');
+    }
+  }
 
-       validateFirstName() {
-         return this.firstName.valid || this.firstName.untouched;
-       }
+  validateFirstName() {
+    return this.firstName.valid || this.firstName.untouched;
+  }
 
-       validateLastName() {
-         return this.lastName.valid || this.lastName.untouched;
-       }
+  validateLastName() {
+    return this.lastName.valid || this.lastName.untouched;
+  }
 }
