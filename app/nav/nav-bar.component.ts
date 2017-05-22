@@ -48,7 +48,7 @@ import { EventService, Sessions } from '../events/index';
                     <div class="form-group">
                     <input [(ngModel)]="searchTerm" name="searchTerm" type="text" class="form-control" placeholder="Search Sessions" >
                     </div>
-                    <button class="btn btn-default" >   
+                    <button class="btn btn-default" modal-trigger>   
                     Search
                     </button>
                 </form>
@@ -64,13 +64,12 @@ import { EventService, Sessions } from '../events/index';
 })
 export class NavBarComponent {
     searchTerm: string = '';
-    foundSession: Array<Sessions>;
+    foundSessions: Array<Sessions>;
     constructor(public auth: AuthService, private eventService: EventService) { }
 
     searchSessions(searchTerm) {
         this.eventService.searchSessions(searchTerm).subscribe(sessions => {
-            this.foundSession = sessions;
-            console.log(this.foundSession);
+            this.foundSessions = sessions;
         });
     }
 }
