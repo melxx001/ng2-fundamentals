@@ -1,4 +1,3 @@
-import { NgModel } from '@angular/forms/src/directives';
 import { Component } from '@angular/core';
 
 import { AuthService } from '../user/auth.service';
@@ -56,12 +55,17 @@ import { EventService, Sessions } from '../events/index';
                 </div>
             </div>
         </div>
+        <simple-modal title="Matching Sessions">
+            <div class="list-group">
+                <a class="list-group-item" *ngFor="let session of foundSessions" [routerLink]="['/events', session.eventId]">{{session.name}}</a>
+            </div>
+        </simple-modal>
     `
 })
 export class NavBarComponent {
     searchTerm: string = '';
     foundSession: Array<Sessions>;
-    constructor(private auth: AuthService, private eventService: EventService) { }
+    constructor(public auth: AuthService, private eventService: EventService) { }
 
     searchSessions(searchTerm) {
         this.eventService.searchSessions(searchTerm).subscribe(sessions => {
