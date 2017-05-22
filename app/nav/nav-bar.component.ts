@@ -55,7 +55,7 @@ import { EventService, Sessions } from '../events/index';
                 </div>
             </div>
         </div>
-        <simple-modal elementId="searchResults" title="Matching Sessions">
+        <simple-modal closeOnBodyClick="true" elementId="searchResults" title="Matching Sessions">
             <div class="list-group">
                 <a class="list-group-item" *ngFor="let session of foundSessions" [routerLink]="['/events', session.eventId]">{{session.name}}</a>
             </div>
