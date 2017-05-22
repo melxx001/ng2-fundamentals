@@ -1,6 +1,8 @@
+import { NgModel } from '@angular/forms/src/directives';
 import { Component } from '@angular/core';
 
 import { AuthService } from '../user/auth.service';
+import { EventService, Sessions } from '../events/index';
 
 @Component({
     selector: 'nav-bar',
@@ -43,11 +45,11 @@ import { AuthService } from '../user/auth.service';
                     </li>
                     </ul>
                 </div>
-                <form id="searchForm"  class="navbar-form navbar-right"  >
+                <form id="searchForm" (ngSubmit)="searchSessions(searchTerm)" class="navbar-form navbar-right"  >
                     <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search Sessions" >
+                    <input [(ngModel)]="searchTerm" name="searchTerm" type="text" class="form-control" placeholder="Search Sessions" >
                     </div>
-                    <button class="btn btn-default" >
+                    <button class="btn btn-default" >   
                     Search
                     </button>
                 </form>
@@ -57,5 +59,14 @@ import { AuthService } from '../user/auth.service';
     `
 })
 export class NavBarComponent {
-    constructor(private auth: AuthService) {}
+    searchTerm: string = '';
+    foundSession: Array<Sessions>;
+    constructor(private auth: AuthService, private eventService: EventService) { }
+
+    searchSessions(searchTerm) {
+        this.eventService.searchSessions(searchTerm).subscribe(sessions => {
+            this.foundSession = sessions;
+            console.log(this.foundSession);
+        });
+    }
 }
