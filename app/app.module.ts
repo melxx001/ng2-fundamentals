@@ -13,7 +13,8 @@ import {
     EventsListResolve,
     CreateSessionComponent,
     SessionListComponent,
-    DurationPipe
+    DurationPipe,
+    UpvoteComponent
 } from './events/index';
 
 import { EventsAppComponent } from './events-app.component'
@@ -53,7 +54,8 @@ declare let jQuery: Object;
         CollapsibleWellComponent,
         SimpleModalComponent,
         ModalTriggerDirective,
-        DurationPipe
+        DurationPipe,
+        UpvoteComponent
     ],
     providers: [
         EventService,

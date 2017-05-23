@@ -6,6 +6,9 @@ import { Sessions } from '../shared/index';
     selector: 'session-list',
     template: `
     <div class="row" *ngFor="let session of visibleSessions">
+        <div class="col-md-1">
+            <upvote (vote)="toggleVote(session)" [count]="session?.voters?.length" [voted]="userHasVoted(session)"></upvote>
+        </div>
         <div class="col-md-10">
             <collapsible-well>
                 <div well-title>
@@ -65,5 +68,13 @@ export class SessionListComponent implements OnChanges {
                 return session.level.toLowerCase() === filter;
             });
         }
+    }
+
+    toggleVote(session: Sessions) {
+
+    }
+
+    userHasVoted(session: Sessions) {
+
     }
 }
