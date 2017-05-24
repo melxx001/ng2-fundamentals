@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component  } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { AuthService } from './auth.service';
 
@@ -32,10 +32,10 @@ import { AuthService } from './auth.service';
     `
 })
 export class LoginComponent {
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(private authService: AuthService, private router: Router) { }
 
     login(formValues) {
-        this.authService.loginUser(formValues.userName, formValues.password);
+        this.authService.loginUser(formValues.value.userName, formValues.value.password);
         this.router.navigate(['events']);
     }
 

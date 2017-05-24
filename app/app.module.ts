@@ -1,3 +1,4 @@
+import { VoterService } from './events/event-details/voter.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
@@ -54,8 +55,8 @@ declare let jQuery: Object;
         CollapsibleWellComponent,
         SimpleModalComponent,
         ModalTriggerDirective,
-        DurationPipe,
-        UpvoteComponent
+        UpvoteComponent,
+        DurationPipe
     ],
     providers: [
         EventService,
@@ -64,7 +65,8 @@ declare let jQuery: Object;
         EventRouteActivator,
         EventsListResolve,
         { provide: 'canDeactivateCreateEvent', useValue: checkDirtyState },
-        AuthService
+        AuthService,
+        VoterService
     ],
     bootstrap: [
         EventsAppComponent
