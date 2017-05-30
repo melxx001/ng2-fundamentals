@@ -81,10 +81,6 @@ export class CreateEventComponent {
         this.router.navigate(['/events']);
     }
 
-    test(location){
-        console.log(locationGroup.control.controls.address.updateValueAndValidity())
-    }
-
     saveEvent(formValues) {
         this.eventService.saveEvent(formValues);
         this.isDirty = false;
