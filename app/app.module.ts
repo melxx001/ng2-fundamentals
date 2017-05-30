@@ -1,3 +1,4 @@
+import { HttpModule } from '@angular/http';
 import { VoterService } from './events/event-details/voter.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -38,6 +39,7 @@ declare let jQuery: Object;
 
 @NgModule({
     imports: [
+        HttpModule,
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
