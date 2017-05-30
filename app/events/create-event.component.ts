@@ -41,6 +41,7 @@ import { EventService } from './shared/index'
                 <div ngModelGroup="location" #locationGroup="ngModelGroup" validateLocation>
                     <div class="form-group">
                         <label for="address">Event Location:</label>
+                        <em *ngIf="locationGroup?.invalid && locationGroup?.touched">You must enter the full location OR an online URL</em>
                         <input (ngModel)="address" name="address" id="address" type="text" class="form-control" placeholder="Address of event..." />
                     </div>
                     <div class="row">
@@ -55,7 +56,7 @@ import { EventService } from './shared/index'
 
                 <div class="form-group">
                     <label for="onlineUrl">Online Url:</label>
-                    <input (ngModel)="onlineUrl" name="onlineUrl" id="onlineUrl" type="text" class="form-control" placeholder="Online Url..." />
+                    <input (ngModel)="onlineUrl" (change)="locationGroup.control.controls.address.updateValueAndValidity()" name="onlineUrl" id="onlineUrl" type="text" class="form-control" placeholder="Online Url..." />
                 </div>
 
                 <div class="form-group" [ngClass]="{'error': newEventForm.controls.imageUrl?.invalid && newEventForm.controls.imageUrl?.touched}">
@@ -78,6 +79,10 @@ export class CreateEventComponent {
 
     cancel() {
         this.router.navigate(['/events']);
+    }
+
+    test(location){
+        console.log(locationGroup.control.controls.address.updateValueAndValidity())
     }
 
     saveEvent(formValues) {
