@@ -1,3 +1,4 @@
+import { Http, Response } from '@angular/http';
 import { Sessions } from '../index';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs/RX';
@@ -5,14 +6,13 @@ import { Event } from './event.model';
 
 @Injectable()
 export class EventService {
-    getEvents(): Observable<Event[]> {
-        let subject = new Subject<Event[]>();
-        setTimeout(() => {
-            subject.next(EVENTS);
-            subject.complete();
-        }, 100);
 
-        return subject;
+    constructor(private http: Http) { }
+
+    getEvents(): Observable<Event[]> {
+        return this.http.get('/api/events').map((response: Response) => {
+            return <Event[]>response.json();
+        }).catch(this.handleError);
     }
 
     getEvent(id: number): Event {
@@ -49,6 +49,10 @@ export class EventService {
         }, 100);
 
         return emitter;
+    }
+
+    private handleError(error: Response) {
+        return Observable.throw(error.statusText);
     }
 }
 
