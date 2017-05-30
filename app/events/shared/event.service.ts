@@ -15,8 +15,10 @@ export class EventService {
         }).catch(this.handleError);
     }
 
-    getEvent(id: number): Event {
-        return EVENTS.find(event => event.id === id);
+    getEvent(id: number): Observable<Event> {
+        return this.http.get('/api/events/' + id).map((response: Response) => {
+            return <Event>response.json();
+        }).catch(this.handleError);
     }
 
     saveEvent(event: Event) {
