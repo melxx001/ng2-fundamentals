@@ -35,6 +35,7 @@ import { AuthService } from './auth.service';
 
           <button type="submit" class="btn btn-primary">Save</button>
           <button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
+          <button type="button" (click)="logout()" class="btn btn-warning" style="float: right">Logout</button>
         </form>
       </div>
     </div>
@@ -58,6 +59,12 @@ export class ProfileComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['events']);
+  }
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/user/login']);
+    });
   }
 
   saveProfile(formValues) {
