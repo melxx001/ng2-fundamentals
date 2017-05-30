@@ -1,4 +1,4 @@
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Sessions } from '../index';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs/RX';
@@ -10,9 +10,7 @@ export class EventService {
     constructor(private http: Http) { }
 
     getEvents(): Observable<Event[]> {
-        return this.http.get('/api/events').map((response: Response) => {
-            return <Event[]>response.json();
-        }).catch(this.handleError);
+        return this.http.get('/api/events').map((response: Response) => <Event[]>response.json()).catch(this.handleError);
     }
 
     getEvent(id: number): Observable<Event> {
@@ -21,15 +19,10 @@ export class EventService {
         }).catch(this.handleError);
     }
 
-    saveEvent(event: Event) {
-        event.id = 999;
-        event.sessions = [];
-        EVENTS.push(event);
-    }
-
-    updateEvent(event: Event) {
-        const index = EVENTS.findIndex(x => x.id === event.id);
-        EVENTS[index] = event;
+    saveEvent(event: Event): Observable<Event> {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post('/api/events', event, options).map((response: Response) => <Event>response.json());
     }
 
     searchSessions(term: string): EventEmitter<any> {
