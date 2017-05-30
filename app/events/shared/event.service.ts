@@ -22,7 +22,9 @@ export class EventService {
     saveEvent(event: Event): Observable<Event> {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
-        return this.http.post('/api/events', event, options).map((response: Response) => <Event>response.json());
+        return this.http.post('/api/events', event, options)
+            .map((response: Response) => <Event>response.json())
+            .catch(this.handleError);
     }
 
     searchSessions(term: string): EventEmitter<any> {
