@@ -27,25 +27,10 @@ export class EventService {
             .catch(this.handleError);
     }
 
-    searchSessions(term: string): EventEmitter<any> {
-        const theTerm = term.toLowerCase();
-        let results: Array<Sessions> = [];
-
-        EVENTS.forEach(event => {
-            let matchingSessions = event.sessions.filter(session => session.name.toLowerCase().indexOf(theTerm) > -1);
-            matchingSessions = matchingSessions.map((session: any) => {
-                session.eventId = event.id;
-                return session;
-            });
-            results = results.concat(matchingSessions);
-        });
-
-        const emitter = new EventEmitter(true);
-        setTimeout(() => {
-            emitter.emit(results);
-        }, 100);
-
-        return emitter;
+    searchSessions(term: string): Observable<Sessions[]> {
+        return this.http.get('/api/sessions/search?search=' + term).map((response: Response) => {
+            return <Sessions[]>response.json();
+        }).catch(this.handleError);
     }
 
     private handleError(error: Response) {
