@@ -1,40 +1,33 @@
-import { Observable } from 'rxjs/RX';
-import {
-    Headers,
-    Http,
-    RequestOptions,
-    Response
-} from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Sessions } from '../shared/index';
 
-
 @Injectable()
 export class VoterService {
+  constructor(private http: Http) {}
 
-    constructor(private http: Http) { }
+  deleteVoter(eventId: number, session: Sessions, voterName: string): void {
+    session.voters = session.voters.filter(voter => voter !== voterName);
+    const url = `/api/events/${eventId}/sessions/${session.id}/voters/${voterName}`;
 
-    deleteVoter(eventId: number, session: Sessions, voterName: string): void {
-        session.voters = session.voters.filter(voter => voter !== voterName);
-        const url = `/api/events/${eventId}/sessions/${session.id}/voters/${voterName}`;
+    this.http.delete(url).catch(this.handleError).subscribe();
+  }
 
-        this.http.delete(url).catch(this.handleError).subscribe();
-    }
+  addVoter(eventId: number, session: Sessions, voterName: string): void {
+    session.voters.push(voterName);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    const url = `/api/events/${eventId}/sessions/${session.id}/voters/${voterName}`;
 
-    addVoter(eventId: number, session: Sessions, voterName: string): void {
-        session.voters.push(voterName);
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({ headers: headers });
-        const url = `/api/events/${eventId}/sessions/${session.id}/voters/${voterName}`;
+    this.http.post(url, {}, options).catch(this.handleError).subscribe();
+  }
 
-        this.http.post(url, {}, options).catch(this.handleError).subscribe();
-    }
+  userHasVoted(session: Sessions, voterName: string): boolean {
+    return session.voters.some(voter => voter === voterName);
+  }
 
-    userHasVoted(session: Sessions, voterName: string): boolean {
-        return session.voters.some(voter => voter === voterName);
-    }
-
-    private handleError(error: Response) {
-        return Observable.throw(error.statusText);
-    }
+  private handleError(error: Response) {
+    return Observable.throw(error.statusText);
+  }
 }

@@ -1,67 +1,68 @@
-import {
-    Headers,
-    Http,
-    RequestOptions,
-    Response
-} from '@angular/http';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/RX';
+import { Observable } from 'rxjs/Rx';
 import { User } from './user.model';
 
 @Injectable()
 export class AuthService {
-    currentUser: User;
+  currentUser: User;
 
-    constructor(private http: Http) { }
+  constructor(private http: Http) {}
 
-    loginUser(userName: string, password: string): Observable<any> {
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({ headers: headers });
-        const loginInfo = { username: userName, password };
+  loginUser(userName: string, password: string): Observable<any> {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    const loginInfo = { username: userName, password };
 
-        return this.http.post('api/login', loginInfo, options)
-            .do((resp: Response) => {
-                if (resp) {
-                    this.currentUser = <User>resp.json().user;
-                }
-            }).catch(error => {
-                return Observable.of(false);
-            });
-    }
+    return this.http
+      .post('api/login', loginInfo, options)
+      .do((resp: Response) => {
+        if (resp) {
+          this.currentUser = <User>resp.json().user;
+        }
+      })
+      .catch(error => {
+        return Observable.of(false);
+      });
+  }
 
-    isAuthenticated() {
-        return !!this.currentUser;
-    }
+  isAuthenticated() {
+    return !!this.currentUser;
+  }
 
-    checkAuthenticationStatus() {
-        return this.http.get('/api/currentIdentity').map((resp: any) => {
-            if (resp._body) {
-                return resp.json()
-            } else {
-                return {};
-            }
-        }).do((currentUser: User) => {
-            if (!!currentUser.userName) {
-                this.currentUser = currentUser;
-            }
-        }).subscribe();
-    }
+  checkAuthenticationStatus() {
+    return this.http
+      .get('/api/currentIdentity')
+      .map((resp: any) => {
+        if (resp._body) {
+          return resp.json();
+        } else {
+          return {};
+        }
+      })
+      .do((currentUser: User) => {
+        if (!!currentUser.userName) {
+          this.currentUser = currentUser;
+        }
+      })
+      .subscribe();
+  }
 
-    updateCurrentUser(firstName: string, lastName: string) {
-        this.currentUser.firstName = firstName;
-        this.currentUser.lastName = lastName;
+  updateCurrentUser(firstName: string, lastName: string) {
+    this.currentUser.firstName = firstName;
+    this.currentUser.lastName = lastName;
 
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({ headers: headers });
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
 
-        return this.http.put(`/api/users/${this.currentUser.id}`, this.currentUser, options);
-    }
+    return this.http.put(`/api/users/${this.currentUser.id}`, this.currentUser, options);
+  }
 
-    logout() {
-        this.currentUser = undefined;
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({ headers: headers });
+  logout() {
+    this.currentUser = undefined;
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
 
-        return this.http.post(`/api/logout`, {}, options);
-    }
+    return this.http.post(`/api/logout`, {}, options);
+  }
 }
