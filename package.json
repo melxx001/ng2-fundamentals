@@ -30,21 +30,21 @@
     "ng2f-bootstrap": "~0.0.4",
     "ng2f-server": "~0.2.3",
     "rxjs": "^5.4.0",
-    "systemjs": "^0.20.12",
+    "systemjs": "^0.20.13",
     "toastr": "^2.1.2",
     "zone.js": "^0.8.11"
   },
   "devDependencies": {
     "@types/core-js": "0.9.34",
-    "@types/jasmine": "^2.5.47",
+    "@types/jasmine": "^2.5.51",
     "@types/node": "6.0.46",
     "concurrently": "^3.4.0",
     "jasmine-core": "^2.6.2",
-    "karma": "1.6.0",
-    "karma-chrome-launcher": "2.0.0",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.1.1",
     "karma-cli": "^1.0.1",
     "karma-jasmine": "1.1.0",
-    "typescript": "^2.3.2"
+    "typescript": "^2.3.4"
   },
   "repository": {}
 }
