@@ -5,7 +5,8 @@
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run server\" ",
     "server": "node node_modules/ng2f-server/server.js",
     "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "tsc:w": "tsc -w",
+    "test": "karma start"
   },
   "keywords": [],
   "author": "",
@@ -35,8 +36,14 @@
   },
   "devDependencies": {
     "@types/core-js": "0.9.34",
+    "@types/jasmine": "^2.5.47",
     "@types/node": "6.0.46",
     "concurrently": "^3.4.0",
+    "jasmine-core": "^2.6.2",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.1.0",
     "typescript": "^2.3.2"
   },
   "repository": {}
