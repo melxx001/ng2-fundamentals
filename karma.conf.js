@@ -1,7 +1,7 @@
 // Karma configuration
 
 module.exports = function(config) {
-  var appBase = '_build/'; // transpiled app JS and map files
+  var appBase = 'app/'; // transpiled app JS and map files
   var appSrcBase = 'app/'; // app source TS files
   var appAssets = '/base/app/'; // component assets fetched by Angular's compiler. all assets served up at http://localhost/base/
 

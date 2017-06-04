@@ -1,6 +1,9 @@
 describe('First Tests', () => {
     it('should be true', () => {
-        debugger;
-        expect(true).toBe(false);
+        expect(true).toBe(true);
+    });
+
+    it('should be false', () => {
+        expect(false).toBe(false);
     });
 });
