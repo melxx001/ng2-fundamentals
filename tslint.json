@@ -77,7 +77,9 @@
         "arrow-parens": false,
         "ordered-imports": [
             false
-        ]
+        ],
+        "ban-types": false,
+        "no-string-literal": false
     },
     "rulesDirectory": []
 }

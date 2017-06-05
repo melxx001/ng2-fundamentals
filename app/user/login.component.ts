@@ -4,10 +4,12 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Component({
-    styles: [`
+  styles: [
+    `
         em { float: right; color: red; padding-left: 10px; }
-    `],
-    template: `
+    `
+  ],
+  template: `
         <h1>Login</h1>
         <hr>
         <div class="col-md-4">
@@ -31,25 +33,30 @@ import { AuthService } from './auth.service';
             <br>
             <div *ngIf="loginInvalid" class="alert alert-danger">Invalid Login Info</div> 
         </div>
-    `,
+    `
 })
 export class LoginComponent {
-    loginInvalid = false;
+  loginInvalid = false;
+  public mouseoverLogin = false;
+  public userName: string;
+  public password: string;
 
-    constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
-    login(formValues) {
-        this.authService.loginUser(formValues.value.userName, formValues.value.password).subscribe((resp) => {
-            if (!resp) {
-                this.loginInvalid = true;
-            } else {
-                this.loginInvalid = false;
-                this.router.navigate(['events']);
-            }
-        });
-    }
+  login(formValues) {
+    this.authService
+      .loginUser(formValues.value.userName, formValues.value.password)
+      .subscribe(resp => {
+        if (!resp) {
+          this.loginInvalid = true;
+        } else {
+          this.loginInvalid = false;
+          this.router.navigate(['events']);
+        }
+      });
+  }
 
-    cancel() {
-        this.router.navigate(['events']);
-    }
+  cancel() {
+    this.router.navigate(['events']);
+  }
 }

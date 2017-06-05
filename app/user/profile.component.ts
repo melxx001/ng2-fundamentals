@@ -7,14 +7,16 @@ import { Toastr, TOASTR_TOKEN } from '../common/toastr.service';
 import { AuthService } from './auth.service';
 
 @Component({
-  styles: [`
+  styles: [
+    `
     em { float: right; color: red; padding-left: 10px }
     .error input { background-color: red; }
     .error ::-webkit-input-placeholder { color: #999 }
     .error ::-moz-placeholder { color: #999 }
     .error :-moz-placeholder { color: #999 }
     .error :ms-input-placeholder { color: #999 }
-  `],
+  `
+  ],
   template: `
     <div>
       <h1>Edit Your Profile </h1>
@@ -23,8 +25,8 @@ import { AuthService } from './auth.service';
         <form [formGroup]="profileForm" (ngSubmit)="saveProfile(profileForm.value)" autocomplete="off" novalidate>
           <div class="form-group" [ngClass]="{ 'error': !validateFirstName() }">
             <label for="firstName">First Name:</label>
-            <em *ngIf="!validateFirstName() && profileForm.controls.firstName.errors.required">Required</em>
-            <em *ngIf="!validateFirstName() && profileForm.controls.firstName.errors.pattern">Must start with a letter</em>
+            <em *ngIf="!validateFirstName() && profileForm.get('firstName').hasError('required')">Required</em>
+            <em *ngIf="!validateFirstName() && profileForm.get('firstName').hasError('pattern')">Must start with a letter</em>
             <input formControlName="firstName" id="firstName" type="text" class="form-control" placeholder="First Name..." />
           </div>
           <div class="form-group" [ngClass]="{ 'error': !validateLastName() }">
@@ -39,21 +41,28 @@ import { AuthService } from './auth.service';
         </form>
       </div>
     </div>
-  `,
+  `
 })
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   firstName: FormControl;
   lastName: FormControl;
 
-  constructor(private authService: AuthService, private router: Router, @Inject(TOASTR_TOKEN) private toastr: Toastr) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    @Inject(TOASTR_TOKEN) private toastr: Toastr
+  ) {}
 
   ngOnInit() {
-    this.firstName = new FormControl(this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
+    this.firstName = new FormControl(this.authService.currentUser.firstName, [
+      Validators.required,
+      Validators.pattern('[a-zA-Z].*')
+    ]);
     this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required);
     this.profileForm = new FormGroup({
       firstName: this.firstName,
-      lastName: this.lastName,
+      lastName: this.lastName
     });
   }
 
@@ -69,9 +78,11 @@ export class ProfileComponent implements OnInit {
 
   saveProfile(formValues) {
     if (this.profileForm.valid) {
-      this.authService.updateCurrentUser(formValues.firstName, formValues.lastName).subscribe(() => {
-        this.toastr.success('Profile Saved');
-      });
+      this.authService
+        .updateCurrentUser(formValues.firstName, formValues.lastName)
+        .subscribe(() => {
+          this.toastr.success('Profile Saved');
+        });
     }
   }
 
