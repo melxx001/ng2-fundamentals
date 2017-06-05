@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-    selector: 'upvote',
-    styles: [`
+  selector: 'upvote',
+  styles: [
+    `
         .votingWidgetContainer {
             padding-left:24px;
         }
@@ -34,8 +35,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
             font-weight: bold;
             font-size: 14px;
         }
-    `],
-    template: `
+    `
+  ],
+  template: `
         <div class="votingWidgetContainer pointable" (click)="onClick()">
             <div class="votingButton">
                 <i class="glyphicon glyphicon-heart" [style.color]="iconColor"></i>
@@ -46,16 +48,16 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         </div>
     `
 })
-
 export class UpvoteComponent {
-    @Input() set voted(val) {
-        this.iconColor = val ? 'red' : 'white';
-    }
-    @Input() count: Number = 0;
-    @Output() vote = new EventEmitter();
-    iconColor: string;
+  @Input()
+  set voted(val) {
+    this.iconColor = val ? 'red' : 'white';
+  }
+  @Input() count = 0;
+  @Output() vote = new EventEmitter();
+  iconColor: string;
 
-    onClick() {
-        this.vote.emit({});
-    }
+  onClick() {
+    this.vote.emit({});
+  }
 }

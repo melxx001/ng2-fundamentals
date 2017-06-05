@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { Sessions } from '../shared/index';
 import { AuthService } from '../../user/auth.service';
+import { Sessions } from '../shared/index';
 import { VoterService } from './voter.service';
 
 @Component({
@@ -28,7 +28,7 @@ import { VoterService } from './voter.service';
             </collapsible-well>
         </div>
     </div>
-    `
+    `,
 })
 export class SessionListComponent implements OnChanges {
     @Input() sessions: Sessions[];
@@ -71,7 +71,7 @@ export class SessionListComponent implements OnChanges {
         if (filter === 'all') {
             this.visibleSessions = [...this.sessions];
         } else {
-            this.visibleSessions = this.sessions.filter(session => {
+            this.visibleSessions = this.sessions.filter((session) => {
                 return session.level.toLowerCase() === filter;
             });
         }
@@ -79,7 +79,7 @@ export class SessionListComponent implements OnChanges {
 
     toggleVote(session: Sessions) {
         if (this.userHasVoted(session)) {
-            this.voterService.deleteVoter(this.eventId, session, this.auth.currentUser.userName)
+            this.voterService.deleteVoter(this.eventId, session, this.auth.currentUser.userName);
         } else {
             this.voterService.addVoter(this.eventId, session, this.auth.currentUser.userName);
         }

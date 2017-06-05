@@ -7,4 +7,4 @@ export interface Toastr {
     info(msg: string, title?: string): void;
     warning(msg: string, title?: string): void;
     error(msg: string, title?: string): void;
-};
+}

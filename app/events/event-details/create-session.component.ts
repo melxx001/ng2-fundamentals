@@ -1,6 +1,6 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Sessions, restrictedWords } from '../shared/index';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { restrictedWords, Sessions } from '../shared/index';
 
 @Component({
     selector: 'create-session',
@@ -60,7 +60,7 @@ import { Sessions, restrictedWords } from '../shared/index';
             <button type="button" (click)="cancel()" class="btn btn-default">Cancel</button>
         </form>
         </div>
-    `
+    `,
 })
 export class CreateSessionComponent implements OnInit {
     name: FormControl;
@@ -85,19 +85,19 @@ export class CreateSessionComponent implements OnInit {
             presenter: this.presenter,
             duration: this.duration,
             level: this.level,
-            abstract: this.abstract
+            abstract: this.abstract,
         });
     }
 
     saveSession(formValues) {
-        let session: any = {
+        const session: any = {
             id: undefined,
             name: formValues.name,
             duration: +formValues.duration,
             level: formValues.level,
             presenter: formValues.presenter,
             abstract: formValues.abstract,
-            voters: []
+            voters: [],
         };
 
         this.saveNewSession.emit(session);

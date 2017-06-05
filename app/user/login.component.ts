@@ -1,5 +1,5 @@
-import { Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
 
@@ -31,7 +31,7 @@ import { AuthService } from './auth.service';
             <br>
             <div *ngIf="loginInvalid" class="alert alert-danger">Invalid Login Info</div> 
         </div>
-    `
+    `,
 })
 export class LoginComponent {
     loginInvalid = false;
@@ -39,7 +39,7 @@ export class LoginComponent {
     constructor(private authService: AuthService, private router: Router) { }
 
     login(formValues) {
-        this.authService.loginUser(formValues.value.userName, formValues.value.password).subscribe(resp => {
+        this.authService.loginUser(formValues.value.userName, formValues.value.password).subscribe((resp) => {
             if (!resp) {
                 this.loginInvalid = true;
             } else {

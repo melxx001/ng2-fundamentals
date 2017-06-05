@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { AuthService } from '../user/auth.service';
 import { EventService, Sessions } from '../events/index';
+import { AuthService } from '../user/auth.service';
 
 @Component({
     selector: 'nav-bar',
@@ -60,15 +60,15 @@ import { EventService, Sessions } from '../events/index';
                 <a class="list-group-item" *ngFor="let session of foundSessions" [routerLink]="['/events', session.eventId]">{{session.name}}</a>
             </div>
         </simple-modal>
-    `
+    `,
 })
 export class NavBarComponent {
-    searchTerm: string = '';
-    foundSessions: Array<Sessions>;
+    searchTerm = '';
+    foundSessions: Sessions[];
     constructor(public auth: AuthService, private eventService: EventService) { }
 
     searchSessions(searchTerm) {
-        this.eventService.searchSessions(searchTerm).subscribe(sessions => {
+        this.eventService.searchSessions(searchTerm).subscribe((sessions) => {
             this.foundSessions = sessions;
         });
     }
