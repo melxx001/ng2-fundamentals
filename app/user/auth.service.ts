@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { User } from './user.model';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class AuthService {
           this.currentUser = resp.json().user as User;
         }
       })
-      .catch((error) => {
+      .catch(error => {
         return Observable.of(false);
       });
   }

@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { VoterService } from './events/event-details/voter.service';
+import './rxjs-extentions';
 
 import {
   CreateEventComponent,
