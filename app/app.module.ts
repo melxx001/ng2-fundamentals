@@ -76,8 +76,7 @@ const jQuery = window['$'];
   bootstrap: [EventsAppComponent]
 })
 export class AppModule {}
-
-function checkDirtyState(component: CreateEventComponent) {
+export function checkDirtyState(component: CreateEventComponent) {
   if (component.isDirty) {
     return window.confirm('Do you want to cancel? You did not save the event');
   }

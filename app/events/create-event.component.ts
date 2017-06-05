@@ -77,6 +77,16 @@ import { EventService } from './shared/index';
 })
 export class CreateEventComponent {
   isDirty = true;
+  public imageUrl: string;
+  public price: string;
+  public time: string;
+  public date: string;
+  public name: string;
+  public address: string;
+  public onlineUrl: string;
+  public city: string;
+  public country: string;
+
   constructor(private router: Router, private eventService: EventService) {}
 
   cancel() {
