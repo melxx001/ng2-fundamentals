@@ -28,7 +28,7 @@ import { Component, EventEmitter, Input, Output, style } from '@angular/core';
             <div *ngIf="event?.onlineUrl">Online URL: {{event?.onlineUrl}}</div>
         </div>
     </div>
-    `
+    `,
 })
 export class EventThumbnailComponent {
     @Input() event: any;
@@ -38,16 +38,16 @@ export class EventThumbnailComponent {
         const earlyStart = this.event && this.event.time === '8:00 am';
         return {
             yellow: earlyStart,
-            bold: earlyStart
-        }
+            bold: earlyStart,
+        };
     }
 
     getStartTimeStyle(): any {
         const earlyStart = this.event && this.event.time === '8:00 am';
 
         return {
-            color: earlyStart ? 'pink' : 'lightgreen',
-            'font-weight': earlyStart ? 'normal' : 'bold'
-        }
+            'color': earlyStart ? 'pink' : 'lightgreen',
+            'font-weight': earlyStart ? 'normal' : 'bold',
+        };
     }
 }

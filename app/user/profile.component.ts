@@ -1,7 +1,7 @@
-import { Router } from '@angular/router';
-import { FormControlName } from '@angular/forms/src/directives';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControlName } from '@angular/forms/src/directives';
+import { Router } from '@angular/router';
 
 import { Toastr, TOASTR_TOKEN } from '../common/toastr.service';
 import { AuthService } from './auth.service';
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required);
     this.profileForm = new FormGroup({
       firstName: this.firstName,
-      lastName: this.lastName
+      lastName: this.lastName,
     });
   }
 

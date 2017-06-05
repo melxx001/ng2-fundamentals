@@ -1,6 +1,6 @@
+import { Observable } from 'rxjs/Rx';
 import { Sessions } from './../shared/event.model';
 import { VoterService } from './voter.service';
-import { Observable } from 'rxjs/Rx';
 
 describe('VoterService', () => {
   let voterService: VoterService;
@@ -16,7 +16,7 @@ describe('VoterService', () => {
       const session = { id: 6, voters: ['joe', 'john'] };
       mockHttp.delete.and.returnValue(Observable.of(false));
 
-      voterService.deleteVoter(3, <Sessions>session, 'joe');
+      voterService.deleteVoter(3, session as Sessions, 'joe');
       expect(session.voters.length).toBe(1);
       expect(session.voters[0]).toBe('john');
     });
@@ -25,7 +25,7 @@ describe('VoterService', () => {
       const session = { id: 6, voters: ['joe', 'john'] };
       mockHttp.delete.and.returnValue(Observable.of(false));
 
-      voterService.deleteVoter(3, <Sessions>session, 'joe');
+      voterService.deleteVoter(3, session as Sessions, 'joe');
       expect(mockHttp.delete).toHaveBeenCalledWith('/api/events/3/sessions/6/voters/joe');
     });
   });
@@ -35,7 +35,7 @@ describe('VoterService', () => {
       const session = { id: 6, voters: ['joe'] };
       mockHttp.post.and.returnValue(Observable.of(false));
 
-      voterService.addVoter(3, <Sessions>session, 'joe');
+      voterService.addVoter(3, session as Sessions, 'joe');
       expect(mockHttp.post).toHaveBeenCalledWith('/api/events/3/sessions/6/voters/joe', {}, jasmine.any(Object));
     });
   });

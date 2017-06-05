@@ -4,11 +4,13 @@ import { EventService } from '../shared/event.service';
 import { Event, Sessions } from '../shared/index';
 
 @Component({
-    styles: [`
+  styles: [
+    `
         .container { padding-left: 20px; padding-right: 20px }
         .event-image { height: 100px; }
-    `],
-    template: `
+    `
+  ],
+  template: `
         <div class="container">
             <img [src]="event?.imageUrl" [alt]="event?.name" class="event-image">
 
@@ -62,36 +64,32 @@ import { Event, Sessions } from '../shared/index';
     `
 })
 export class EventDetailsComponent implements OnInit {
-    event: Event;
-    addMode: boolean;
-    filterBy: string = 'all';
-    sortBy: string = 'votes';
+  event: Event;
+  addMode: boolean;
+  filterBy = 'all';
+  sortBy = 'votes';
 
-    constructor(
-        private eventService: EventService,
-        private route: ActivatedRoute
-    ) { }
+  constructor(private eventService: EventService, private route: ActivatedRoute) {}
 
-    ngOnInit() {
-        this.route.data.forEach((data: any) => {
-            this.event = data['event'];
-            this.addMode = false;
-        });
-    }
+  ngOnInit() {
+    this.route.data.forEach((data: any) => {
+      this.event = data.event;
+      this.addMode = false;
+    });
+  }
 
-    addSession() {
-        this.addMode = true;
-    }
+  addSession() {
+    this.addMode = true;
+  }
 
+  saveNewSession(session: Sessions) {
+    session.id = Math.max.apply(undefined, this.event.sessions.map(s => s.id)) + 1;
+    this.event.sessions.push(session);
+    this.eventService.saveEvent(this.event).subscribe();
+    this.addMode = false;
+  }
 
-    saveNewSession(session: Sessions) {
-        session.id = Math.max.apply(null, this.event.sessions.map(s => s.id)) + 1;
-        this.event.sessions.push(session);
-        this.eventService.saveEvent(this.event).subscribe();
-        this.addMode = false;
-    }
-
-    cancelAddSession() {
-        this.addMode = false;
-    }
+  cancelAddSession() {
+    this.addMode = false;
+  }
 }

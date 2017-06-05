@@ -1,13 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuthService } from './../../user/auth.service';
-import { By } from '@angular/platform-browser';
 import { Component, DebugElement } from '@angular/core';
-import { SessionListComponent } from './session-list.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { CollapsibleWellComponent } from '../../common/collapsible-well.component';
+import { DurationPipe } from '../shared/duration.pipe';
+import { AuthService } from './../../user/auth.service';
 import { Sessions } from './../shared/event.model';
+import { SessionListComponent } from './session-list.component';
 import { UpvoteComponent } from './upvote.component';
 import { VoterService } from './voter.service';
-import { DurationPipe } from '../shared/duration.pipe';
-import { CollapsibleWellComponent } from '../../common/collapsible-well.component';
 
 describe('SessionListComponent Deep', () => {
   let fixture: ComponentFixture<SessionListComponent>;
@@ -17,14 +17,14 @@ describe('SessionListComponent Deep', () => {
 
   beforeEach(
     async(() => {
-      let mockAuthService = {
+      const mockAuthService = {
         isAuthenticated: () => true,
         currentUser: {
-          userName: 'Joe'
-        }
+          userName: 'Joe',
+        },
       };
-      let mockVoterService = {
-        userHasVoted: () => true
+      const mockVoterService = {
+        userHasVoted: () => true,
       };
 
       TestBed.configureTestingModule({
@@ -33,15 +33,15 @@ describe('SessionListComponent Deep', () => {
           SessionListComponent,
           UpvoteComponent,
           DurationPipe,
-          CollapsibleWellComponent
+          CollapsibleWellComponent,
         ],
         providers: [
           { provide: AuthService, useValue: mockAuthService },
-          { provide: VoterService, useValue: mockVoterService }
+          { provide: VoterService, useValue: mockVoterService },
         ],
-        schemas: []
+        schemas: [],
       }).compileComponents();
-    })
+    }),
   );
 
   beforeEach(() => {
@@ -61,8 +61,8 @@ describe('SessionListComponent Deep', () => {
           duration: 1,
           level: 'beginner',
           abstract: 'abstract',
-          voters: ['john', 'bob']
-        }
+          voters: ['john', 'bob'],
+        },
       ];
 
       component.filterBy = 'all';
@@ -75,7 +75,7 @@ describe('SessionListComponent Deep', () => {
       expect(element.querySelector('[well-title]').textContent).toContain('Session 1');
       expect(debugEl.query(By.css('[well-title')).nativeElement.textContent).toContain('Session 1');
       expect(
-        debugEl.query(By.directive(CollapsibleWellComponent)).nativeElement.textContent
+        debugEl.query(By.directive(CollapsibleWellComponent)).nativeElement.textContent,
       ).toContain('Session 1');
     });
   });

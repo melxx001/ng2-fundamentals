@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
 import { JQ_TOKEN } from './index';
 
 @Component({
@@ -25,7 +25,7 @@ import { JQ_TOKEN } from './index';
                 </div>
             </div>
         </div>
-    `
+    `,
 })
 export class SimpleModalComponent {
     @Input() title: string;
@@ -36,7 +36,7 @@ export class SimpleModalComponent {
     constructor( @Inject(JQ_TOKEN) private $: any) { }
 
     closeModal() {
-        if (this.closeOnBodyClick.toLowerCase() === "true") {
+        if (this.closeOnBodyClick.toLowerCase() === 'true') {
             this.$(this.containerEl.nativeElement).modal('hide');
         }
     }

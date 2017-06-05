@@ -1,5 +1,5 @@
-import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { User } from './user.model';
 
@@ -11,17 +11,17 @@ export class AuthService {
 
   loginUser(userName: string, password: string): Observable<any> {
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers });
     const loginInfo = { username: userName, password };
 
     return this.http
       .post('api/login', loginInfo, options)
       .do((resp: Response) => {
         if (resp) {
-          this.currentUser = <User>resp.json().user;
+          this.currentUser = resp.json().user as User;
         }
       })
-      .catch(error => {
+      .catch((error) => {
         return Observable.of(false);
       });
   }
@@ -53,7 +53,7 @@ export class AuthService {
     this.currentUser.lastName = lastName;
 
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers });
 
     return this.http.put(`/api/users/${this.currentUser.id}`, this.currentUser, options);
   }
@@ -61,7 +61,7 @@ export class AuthService {
   logout() {
     this.currentUser = undefined;
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers });
 
     return this.http.post(`/api/logout`, {}, options);
   }

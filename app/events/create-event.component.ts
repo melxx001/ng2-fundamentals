@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { EventService } from './shared/index'
+import { EventService } from './shared/index';
 
 @Component({
     styles: [`
@@ -71,10 +71,10 @@ import { EventService } from './shared/index'
                 <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
             </form>
         </div>
-    `
+    `,
 })
 export class CreateEventComponent {
-    isDirty: boolean = true
+    isDirty = true;
     constructor(private router: Router, private eventService: EventService) { }
 
     cancel() {
@@ -82,7 +82,7 @@ export class CreateEventComponent {
     }
 
     saveEvent(formValues) {
-        this.eventService.saveEvent(formValues).subscribe(event => {
+        this.eventService.saveEvent(formValues).subscribe((event) => {
             this.isDirty = false;
             this.router.navigate(['/events']);
         });

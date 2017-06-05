@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuthService } from './../../user/auth.service';
-import { By } from '@angular/platform-browser';
 import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { SessionListComponent } from './session-list.component';
-import { Sessions } from './../shared/event.model';
-import { VoterService } from './voter.service';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { DurationPipe } from '../shared/duration.pipe';
+import { AuthService } from './../../user/auth.service';
+import { Sessions } from './../shared/event.model';
+import { SessionListComponent } from './session-list.component';
+import { VoterService } from './voter.service';
 
 describe('SessionListComponent Shallow', () => {
   let fixture: ComponentFixture<SessionListComponent>;
@@ -15,14 +15,14 @@ describe('SessionListComponent Shallow', () => {
 
   beforeEach(
     async(() => {
-      let mockAuthService = {
+      const mockAuthService = {
         isAuthenticated: () => true,
         currentUser: {
-          userName: 'Joe'
-        }
+          userName: 'Joe',
+        },
       };
-      let mockVoterService = {
-        userHasVoted: () => true
+      const mockVoterService = {
+        userHasVoted: () => true,
       };
 
       TestBed.configureTestingModule({
@@ -30,16 +30,16 @@ describe('SessionListComponent Shallow', () => {
         declarations: [
           SessionListComponent,
           //   UpvoteComponent,
-          DurationPipe
+          DurationPipe,
           //   CollapsibleWellComponent
         ],
         providers: [
           { provide: AuthService, useValue: mockAuthService },
-          { provide: VoterService, useValue: mockVoterService }
+          { provide: VoterService, useValue: mockVoterService },
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
-    })
+    }),
   );
 
   beforeEach(() => {
@@ -59,8 +59,8 @@ describe('SessionListComponent Shallow', () => {
           duration: 1,
           level: 'beginner',
           abstract: 'abstract',
-          voters: ['john', 'bob']
-        }
+          voters: ['john', 'bob'],
+        },
       ];
 
       component.filterBy = 'all';
