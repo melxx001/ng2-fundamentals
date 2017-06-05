@@ -3,7 +3,6 @@ import { Resolve } from '@angular/router';
 
 import { EventService } from './shared/event.service';
 
-
 @Injectable()
 export class EventsListResolve implements Resolve<any> {
     constructor(private eventService: EventService) { }

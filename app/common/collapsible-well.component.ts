@@ -9,10 +9,10 @@ import { Component, Input } from '@angular/core';
             </h4>
             <ng-content select="[well-body]" *ngIf="visible"></ng-content>
         </div>
-    `
+    `,
 })
 export class CollapsibleWellComponent {
-    visible: boolean = true;
+    visible = true;
 
     toggleContent() {
         this.visible = !this.visible;
