@@ -6,7 +6,8 @@
     "server": "node node_modules/ng2f-server/server.js",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "test": "karma start"
+    "test": "karma start",
+    "tslint": "tslint \"app/**/*.ts\""
   },
   "keywords": [],
   "author": "",
@@ -44,6 +45,7 @@
     "karma-chrome-launcher": "^2.1.1",
     "karma-cli": "^1.0.1",
     "karma-jasmine": "1.1.0",
+    "tslint": "^5.4.2",
     "typescript": "^2.3.4"
   },
   "repository": {}
