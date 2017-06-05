@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { Sessions } from './../shared/event.model';
 import { VoterService } from './voter.service';
 
@@ -36,7 +36,11 @@ describe('VoterService', () => {
       mockHttp.post.and.returnValue(Observable.of(false));
 
       voterService.addVoter(3, session as Sessions, 'joe');
-      expect(mockHttp.post).toHaveBeenCalledWith('/api/events/3/sessions/6/voters/joe', {}, jasmine.any(Object));
+      expect(mockHttp.post).toHaveBeenCalledWith(
+        '/api/events/3/sessions/6/voters/joe',
+        {},
+        jasmine.any(Object)
+      );
     });
   });
 });
