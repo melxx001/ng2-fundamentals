@@ -16,6 +16,8 @@
   "compileOnSave": true,
   "exclude": [
     "node_modules/*",
+    "course-code/*",
+    "course-slides/*",
     "**/*-aot.ts"
   ]
 }
